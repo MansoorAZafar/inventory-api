@@ -5,12 +5,12 @@ const createSuccessResponse = (data) => {
   };
 };
 
-const createErrorResponse = (code, data) => {
+const createErrorResponse = (code, message) => {
   return {
     status: 'error',
     error: {
       code,
-      ...data,
+      message,
     },
   };
 };
