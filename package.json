@@ -1,0 +1,28 @@
+{
+  "name": "inventory-api",
+  "version": "1.0.0",
+  "description": "Inventory Management Microservice",
+  "license": "UNLICENSED",
+  "author": "MansoorAZafar",
+  "type": "commonjs",
+  "scripts": {
+    "test": "jest -c jest.config.js --runInBand --",
+    "start": "node src/index.js",
+    "lint": "eslint \"./src/**/*.js\" \"tests/**/*.js\" "
+  },
+  "dependencies": {
+    "compression": "^1.8.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "eslint": "^9.32.0",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "jest": "^30.0.5",
+    "passport": "^0.7.0",
+    "path": "^0.12.7",
+    "pino": "^9.7.0",
+    "pino-http": "^10.5.0",
+    "stoppable": "^1.1.0",
+    "supertest": "^7.1.4"
+  }
+}
