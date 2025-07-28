@@ -11,11 +11,11 @@ const getItemById = async (req, res) => {
   } catch (e) {
     logger.warn(`Invalid Item ID: ${id}`);
     const error = createErrorResponse(404, `Invalid Item ID: ${id}: ${e.message}`);
-    res.status(404).json(error);
+    return res.status(404).json(error);
   }
 
-  const success = createSuccessResponse(storedItem);
-  res.status(200).json(success);
+  const success = createSuccessResponse({ item: storedItem });
+  return res.status(200).json(success);
 };
 
 module.exports = getItemById;
