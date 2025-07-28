@@ -8,6 +8,8 @@ class Item {
     if (!name || !price || (quantity != 0 && !quantity))
       throw new Error('name, price and quantity are required');
     if (quantity < 0) throw new Error('cannot have less than 0 items');
+    if (typeof price !== 'number') throw new Error('price must be a number');
+    if (typeof quantity !== 'number') throw new Error('quantity must be a number');
 
     this.id = id || randomUUID();
     this.name = name;
