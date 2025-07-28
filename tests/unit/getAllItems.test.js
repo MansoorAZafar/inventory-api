@@ -3,8 +3,21 @@ const app = require('../../src/app');
 const { Inventory, Item } = require('../../src/model');
 
 describe('Testing GET /items route', () => {
+  test('unauthenticated requests are denied', () =>
+    request(app).delete('/v1/items').expect(401));
+
+  // If the wrong username/password pair are used (no such user), it should be forbidden
+  test('incorrect credentials are denied', () =>
+    request(app)
+      .delete('/v1/items')
+      .auth('invalid@email.com', 'incorrect_password')
+      .expect(401));
+
   test('Getting all items with no items return empty array', async () => {
-    const allItems = await request(app).get('/v1/items');
+    const allItems = await request(app)
+      .get('/v1/items')
+      .auth('user1@email.com', 'password1');
+
     expect(allItems.status).toBe(200);
     expect(allItems.body.status).toBe('ok');
 
@@ -22,7 +35,9 @@ describe('Testing GET /items route', () => {
       await Inventory.save(item);
     });
 
-    const allItems = await request(app).get('/v1/items');
+    const allItems = await request(app)
+      .get('/v1/items')
+      .auth('user1@email.com', 'password1');
     items.forEach(async (item) => {
       await Inventory.deleteItem(item.id);
     });

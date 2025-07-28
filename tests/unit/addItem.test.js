@@ -3,11 +3,22 @@ const app = require('../../src/app');
 const { Item } = require('../../src/model');
 
 describe('Testing POST /item route', () => {
+  test('unauthenticated requests are denied', () =>
+    request(app).delete('/v1/item').expect(401));
+
+  // If the wrong username/password pair are used (no such user), it should be forbidden
+  test('incorrect credentials are denied', () =>
+    request(app)
+      .delete('/v1/item')
+      .auth('invalid@email.com', 'incorrect_password')
+      .expect(401));
+
   test('adding bad item with no name', async () => {
     const body = JSON.stringify({ price: 20.25, quantity: 2 });
 
     const res = await request(app)
       .post(`/v1/item`)
+      .auth('user1@email.com', 'password1')
       .set('Content-Type', 'application/json')
       .send(body);
 
@@ -23,6 +34,7 @@ describe('Testing POST /item route', () => {
 
     const res = await request(app)
       .post(`/v1/item`)
+      .auth('user1@email.com', 'password1')
       .set('Content-Type', 'application/json')
       .send(body);
 
@@ -38,6 +50,7 @@ describe('Testing POST /item route', () => {
 
     const res = await request(app)
       .post(`/v1/item`)
+      .auth('user1@email.com', 'password1')
       .set('Content-Type', 'application/json')
       .send(body);
 
@@ -54,6 +67,7 @@ describe('Testing POST /item route', () => {
 
     let res = await request(app)
       .post('/v1/item')
+      .auth('user1@email.com', 'password1')
       .set('Content-Type', 'application/json')
       .send(body);
     const id = res.body.id;
@@ -62,12 +76,16 @@ describe('Testing POST /item route', () => {
     expect(res.body.status).toBe('ok');
     expect(id).toBe(item.id);
 
-    res = await request(app).get(`/v1/item/${id}`);
+    res = await request(app)
+      .get(`/v1/item/${id}`)
+      .auth('user1@email.com', 'password1');
     expect(res.status).toBe(200);
     expect(res.body.status).toBe('ok');
     expect(res.body.item).toEqual(item);
 
-    await request(app).delete(`/v1/item/${id}`);
+    await request(app)
+      .delete(`/v1/item/${id}`)
+      .auth('user1@email.com', 'password1');
   });
 
   //
