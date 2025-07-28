@@ -9,6 +9,9 @@ router.get('/items', require('./get/getAllItems'));
 // POST
 router.post('/item', express.json(), require('./post/addItem'));
 
+// PUT
+router.put('/item/:id', express.json(), require('./put/updateItem'));
+
 // DELETE
 router.delete('/item/:id', require('./delete/deleteItem'));
 

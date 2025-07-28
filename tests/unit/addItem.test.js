@@ -6,37 +6,46 @@ describe('Testing POST /item route', () => {
   test('adding bad item with no name', async () => {
     const body = JSON.stringify({ price: 20.25, quantity: 2 });
 
-    expect(
-      async () =>
-        await request(app)
-          .post('/v1/item')
-          .set('Content-Type', 'application/json')
-          .send(body)
-    );
+    const res = await request(app)
+      .post(`/v1/item`)
+      .set('Content-Type', 'application/json')
+      .send(body);
+
+    expect(res.status).toBe(404);
+    expect(res.body.status).toBe('error');
+    expect(res.body.error).toBeDefined();
+    expect(res.body.error.code).toBe(404);
+    expect(res.body.error.message).toBeDefined();
   });
 
   test('adding bad item with no price', async () => {
     const body = JSON.stringify({ name: 'water', quantity: 2 });
 
-    expect(
-      async () =>
-        await request(app)
-          .post('/v1/item')
-          .set('Content-Type', 'application/json')
-          .send(body)
-    );
+    const res = await request(app)
+      .post(`/v1/item`)
+      .set('Content-Type', 'application/json')
+      .send(body);
+
+    expect(res.status).toBe(404);
+    expect(res.body.status).toBe('error');
+    expect(res.body.error).toBeDefined();
+    expect(res.body.error.code).toBe(404);
+    expect(res.body.error.message).toBeDefined();
   });
 
   test('adding bad item with no quantity', async () => {
     const body = JSON.stringify({ name: 'water', price: 2 });
 
-    expect(
-      async () =>
-        await request(app)
-          .post('/v1/item')
-          .set('Content-Type', 'application/json')
-          .send(body)
-    );
+    const res = await request(app)
+      .post(`/v1/item`)
+      .set('Content-Type', 'application/json')
+      .send(body);
+
+    expect(res.status).toBe(404);
+    expect(res.body.status).toBe('error');
+    expect(res.body.error).toBeDefined();
+    expect(res.body.error.code).toBe(404);
+    expect(res.body.error.message).toBeDefined();
   });
 
   test('adding item proper', async () => {
