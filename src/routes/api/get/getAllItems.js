@@ -3,7 +3,7 @@ const { createSuccessResponse } = require('../../../response');
 const logger = require('../../../logger');
 
 const getAllItems = async (_req, res) => {
-  logger.info('Entered /items');
+  logger.info('Entered GET /items');
   const storedItems = await Inventory.get();
   const success = createSuccessResponse({ items: storedItems });
 

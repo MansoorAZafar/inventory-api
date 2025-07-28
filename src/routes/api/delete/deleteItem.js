@@ -3,7 +3,7 @@ const { Inventory } = require('../../../model');
 const { createErrorResponse, createSuccessResponse } = require('../../../response');
 
 const deleteItem = async (req, res) => {
-  logger.info('Entered /delete/id');
+  logger.info('Entered DELETE /item/id');
   const id = req.params.id;
 
   try {

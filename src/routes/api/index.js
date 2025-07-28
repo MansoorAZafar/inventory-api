@@ -6,6 +6,9 @@ const router = express.Router();
 router.get('/item/:id', require('./get/getItemById'));
 router.get('/items', require('./get/getAllItems'));
 
+// POST
+router.post('/item', express.json(), require('./post/addItem'));
+
 // DELETE
 router.delete('/item/:id', require('./delete/deleteItem'));
 

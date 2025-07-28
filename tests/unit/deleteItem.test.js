@@ -2,7 +2,7 @@ const request = require('supertest');
 const app = require('../../src/app');
 const { Inventory, Item } = require('../../src/model');
 
-describe('Testing /delete/id route', () => {
+describe('Testing DELETE /item route', () => {
   test('deleting non-existent item should return Error', async () => {
     const res = await request(app).delete('/v1/item/123');
 
