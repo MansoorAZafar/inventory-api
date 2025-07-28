@@ -8,7 +8,8 @@
   "scripts": {
     "test": "jest -c jest.config.js --runInBand --",
     "start": "node src/index.js",
-    "lint": "eslint \"./src/**/*.js\" \"tests/**/*.js\" "
+    "lint": "eslint \"./src/**/*.js\" \"tests/**/*.js\" ",
+    "coverage": "jest -c jest.config.js --runInBand --coverage"
   },
   "dependencies": {
     "compression": "^1.8.1",

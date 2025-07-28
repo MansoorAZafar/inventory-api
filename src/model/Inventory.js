@@ -1,31 +1,34 @@
 const { Item } = require('./item');
+// eslint-disable-next-line no-unused-vars
+const { writeItem, readItem, listItems, deleteItem } = require('./data');
 
 class Inventory {
-  createItem(item) {
+  static async save(item) {
     if (typeof item !== Item) throw new Error('Can only add typeof Items');
     // TODO: Add to DB
+    await writeItem(item.id, item);
+    return Promise.resolve();
   }
 
-  byId(id) {
-    id;
-    //TODO: Read item from DB matching ID
+  static async byId(id) {
+    const item = await readItem(id);
+    return Promise.resolve(item);
   }
 
-  get() {
+  static async get() {
     //TODO: Return ALL items from DB
   }
 
-  byTag(tag) {
+  static async byTag(tag) {
     tag;
     // TODO: Read items from DB Matching TAG
   }
 
-  deleteItem(id) {
-    id;
-    // TODO: Delete item from DB if match Id
+  static async deleteItem(id) {
+    return await deleteItem(id);
   }
 
-  updateItem(id, content) {
+  static async updateItem(id, content) {
     id;
     content;
     // TODO: Update item X with content
