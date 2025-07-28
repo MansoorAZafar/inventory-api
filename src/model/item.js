@@ -5,7 +5,8 @@ const DEFAULT_DESCRIPTION = 'item default desc';
 
 class Item {
   constructor({ id, name, price, description, quantity, tags, imgURL }) {
-    if (!name || !price || !quantity) throw new Error('name, price and quantity are required');
+    if (!name || !price || (quantity != 0 && !quantity))
+      throw new Error('name, price and quantity are required');
     if (quantity < 0) throw new Error('cannot have less than 0 items');
 
     this.id = id || randomUUID();

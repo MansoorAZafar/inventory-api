@@ -1,37 +1,58 @@
 const { Item } = require('./item');
-// eslint-disable-next-line no-unused-vars
+
 const { writeItem, readItem, listItems, deleteItem } = require('./data');
 
 class Inventory {
+  /**
+   * Saves an item into the DB
+   * @param {Item} item
+   * @returns {Promise<any>}
+   */
   static async save(item) {
-    if (typeof item !== Item) throw new Error('Can only add typeof Items');
+    if (!(item instanceof Item)) throw new Error('Can only add typeof Items');
     // TODO: Add to DB
-    await writeItem(item.id, item);
+    await writeItem(item);
     return Promise.resolve();
   }
 
+  /**
+   * Gets a Item from the DB  for the given id
+   * @param {string} id
+   * @returns {Promise<Item>}
+   */
   static async byId(id) {
-    const item = await readItem(id);
+    const storedItem = await readItem(id);
+    const item = new Item(storedItem);
     return Promise.resolve(item);
   }
 
+  /**
+   * Gets all values from the DB
+   * @returns {Promise<Item[]>}
+   */
   static async get() {
-    //TODO: Return ALL items from DB
+    const storedItems = (await listItems()).map((item) => new Item(item));
+    return Promise.resolve(storedItems);
   }
 
-  static async byTag(tag) {
-    tag;
-    // TODO: Read items from DB Matching TAG
-  }
-
+  /**
+   * Deletes the item from the DB
+   * @param {string} id
+   * @returns {Promise<any>}
+   */
   static async deleteItem(id) {
     return await deleteItem(id);
   }
 
-  static async updateItem(id, content) {
-    id;
-    content;
-    // TODO: Update item X with content
+  /**
+   * Updates the item in the DB
+   *
+   * @param {string} id
+   * @param {Item} content
+   * @returns {Promise<any>}
+   */
+  static async update(id, content) {
+    return await writeItem({ id, ...content });
   }
 }
 

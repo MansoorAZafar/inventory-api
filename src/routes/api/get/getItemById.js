@@ -1,8 +1,21 @@
 const logger = require('../../../logger');
+const { Inventory } = require('../../../model/Inventory');
+const { createErrorResponse, createSuccessResponse } = require('../../../response');
 
-const getItemById = async (_req, res) => {
+const getItemById = async (req, res) => {
   logger.debug('calling getItemById()');
-  res.send('Hello World');
+  const id = req.params.id;
+  let storedItem;
+  try {
+    storedItem = await Inventory.byId(id);
+  } catch (e) {
+    logger.warn(`Invalid Item ID: ${id}`);
+    const error = createErrorResponse(404, `Invalid Item ID: ${id}: ${e.message}`);
+    res.status(404).json(error);
+  }
+
+  const success = createSuccessResponse(storedItem);
+  res.status(200).json(success);
 };
 
 module.exports = getItemById;
