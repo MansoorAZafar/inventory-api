@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const compression = require('compression');
+const passport = require('passport');
+const authenticate = require('./auth');
 const helm = require('helmet');
 
 const { createErrorResponse } = require('./response');
@@ -15,6 +17,9 @@ app.use(pino);
 app.use(compression());
 app.use(helm());
 app.use(cors());
+
+passport.use(authenticate.strategy());
+app.use(passport.initialize());
 
 /**
  * @description: A Simple server health check

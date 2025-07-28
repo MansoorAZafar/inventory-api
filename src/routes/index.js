@@ -3,8 +3,9 @@ const logger = require('../logger');
 const router = express.Router();
 const { author, version } = require('../../package.json');
 const { createSuccessResponse } = require('../response');
+const { authenticate } = require('../auth');
 
-router.use('/v1', require('./api'));
+router.use('/v1', authenticate(), require('./api'));
 
 const { hostname } = require('os');
 /**
