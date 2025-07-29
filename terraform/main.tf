@@ -17,7 +17,7 @@ resource "azurerm_resource_group" "rg" {
   location = "westus3"
 }
 
-resource "azurerm_cosmosdb_account" "db" {
+resource "azurerm_cosmosdb_account" "acc" {
   name                = "inventorymicroservice"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
@@ -32,4 +32,18 @@ resource "azurerm_cosmosdb_account" "db" {
     location          = azurerm_resource_group.rg.location
     failover_priority = 0
   }
+}
+
+resource "azurerm_cosmosdb_sql_database" "db" {
+  name                = "inventory"
+  resource_group_name = azurerm_cosmosdb_account.acc.resource_group_name
+  account_name        = azurerm_cosmosdb_account.acc.name
+}
+
+resource "azurerm_cosmosdb_sql_container" "coll" {
+  name                = "Items"
+  resource_group_name = azurerm_cosmosdb_account.acc.resource_group_name
+  account_name        = azurerm_cosmosdb_account.acc.name
+  database_name       = azurerm_cosmosdb_sql_database.db.name
+  partition_key_path  = "/Items"
 }
