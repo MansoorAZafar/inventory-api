@@ -14,6 +14,8 @@ module.exports.strategy = () =>
     try {
       const user = await admin.auth().verifyIdToken(token);
       logger.debug({ user }, `verified user token`);
+
+      done(null, user.email);
     } catch (e) {
       logger.error({ e, token }, `could not verify token`);
       done(null, false);
