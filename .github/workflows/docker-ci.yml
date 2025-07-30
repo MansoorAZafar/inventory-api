@@ -2,10 +2,10 @@ name: Docker Testing
 on:
   pull_request:
     branches:
-      - main
+      - master
   push:
     branches:
-      - main
+      - master
 
 jobs:
   lint-dockerfile:
