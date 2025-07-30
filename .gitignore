@@ -8,4 +8,4 @@ terraform/.terraform/
 **/*.tfstate
 **/crash.log
 **/crash.*.log
-
+credentials.json

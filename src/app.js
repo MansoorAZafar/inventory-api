@@ -4,9 +4,11 @@ const compression = require('compression');
 const passport = require('passport');
 const authenticate = require('./auth');
 const helm = require('helmet');
+const admin = require('firebase-admin');
 
 const { createErrorResponse } = require('./response');
 
+const serviceAccount = require(`../${process.env.FIREBASE_SERVICE_ACCOUNT}`);
 const logger = require('./logger');
 const pino = require('pino-http')({
   logger,
@@ -17,6 +19,10 @@ app.use(pino);
 app.use(compression());
 app.use(helm());
 app.use(cors());
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
 
 passport.use(authenticate.strategy());
 app.use(passport.initialize());
