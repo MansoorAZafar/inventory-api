@@ -9,9 +9,6 @@ const admin = require('firebase-admin');
 
 const { createErrorResponse } = require('./response');
 
-const serviceAccountPath = path.resolve(process.env.FIREBASE_SERVICE_ACCOUNT);
-const serviceAccount = require(serviceAccountPath);
-
 const logger = require('./logger');
 const pino = require('pino-http')({
   logger,
@@ -23,9 +20,14 @@ app.use(compression());
 app.use(helm());
 app.use(cors());
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
+if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+  // If it's there, then initialize fb
+  const serviceAccountPath = path.resolve(process.env.FIREBASE_SERVICE_ACCOUNT);
+  const serviceAccount = require(serviceAccountPath);
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  });
+}
 
 passport.use(authenticate.strategy());
 app.use(passport.initialize());
