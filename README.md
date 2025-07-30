@@ -14,8 +14,8 @@ docker run --rm --name inventory --env-file .env -v ${pwd}/credentials.json:/app
 
 1. Have an Account with Azure
 
-- It needs to be able to use CosmosDB
+  - It needs to be able to use CosmosDB
 
 2. Have a Firebase Project
 
-- Generate and Download a new Private Key and call it "credentials.json"
+  - Generate and Download a new Private Key and call it "credentials.json"
