@@ -41,4 +41,4 @@ jobs:
           cache: 'npm'
 
       - name: Install Dependencies and Run Tests
-        run: npm install-ci-test
+        run: npm ci && npm test

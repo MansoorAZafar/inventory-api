@@ -1,4 +1,4 @@
-name: Unit, Linting Tests
+name: Docker Testing
 on:
   pull_request:
     branches:
@@ -8,13 +8,14 @@ on:
       - main
 
 jobs:
-  name: Dockerfile Lint
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4
+  lint-dockerfile:
+    name: Dockerfile Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-    - name: Linting Dockerfile
-      uses: hadolint/hadolint-action@v3.1.0
-      with:
-        dockerfile: Dockerfile
+      - name: Linting Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
