@@ -10,6 +10,7 @@ const getCredentials = () => {
         requestTimeout: 10000,
       },
     };
+    logger.debug('Credentials Set');
     return credentials;
   }
   logger.warn('Credentials Not Set');
@@ -19,12 +20,16 @@ const getCredentials = () => {
 const getClient = () => {
   const credentials = getCredentials();
   const cdbClient = new CosmosClient(credentials);
+  logger.debug('cosmos client initialized');
 
-  const database = cdbClient.database('');
-  const container = database.container('');
+  const database = cdbClient.database(process.env.COSMOSDB_DATABASE);
+  const container = database.container(process.env.COSMOSDB_CONTAINER);
 
   return container;
 };
 
+logger.info('using azure cosmosDB');
+
 // const {container} = await database
+// module.exports = getClient();
 module.exports = getClient();

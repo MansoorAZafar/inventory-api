@@ -45,5 +45,5 @@ resource "azurerm_cosmosdb_sql_container" "coll" {
   resource_group_name = azurerm_cosmosdb_account.acc.resource_group_name
   account_name        = azurerm_cosmosdb_account.acc.name
   database_name       = azurerm_cosmosdb_sql_database.db.name
-  partition_key_path  = "/Items"
+  partition_key_path  = "/id"
 }

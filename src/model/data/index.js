@@ -1,1 +1,3 @@
-module.exports = process.env.AZURE_REGION ? require('./azure') : require('./memory');
+module.exports = process.env.COSMOSDB_ENDPOINT
+  ? require('./azure')
+  : require('./memory');

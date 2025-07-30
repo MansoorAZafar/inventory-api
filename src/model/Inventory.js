@@ -31,7 +31,11 @@ class Inventory {
    * @returns {Promise<Item[]>}
    */
   static async get() {
-    const storedItems = (await listItems()).map((item) => new Item(item));
+    const items = await listItems();
+    let storedItems = [];
+    if (items) {
+      storedItems = items.map((item) => new Item(item));
+    }
     return Promise.resolve(storedItems);
   }
 
