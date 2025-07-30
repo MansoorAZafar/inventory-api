@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const compression = require('compression');
+const path = require('path');
 const passport = require('passport');
 const authenticate = require('./auth');
 const helm = require('helmet');
@@ -8,7 +9,9 @@ const admin = require('firebase-admin');
 
 const { createErrorResponse } = require('./response');
 
-const serviceAccount = require(`../${process.env.FIREBASE_SERVICE_ACCOUNT}`);
+const serviceAccountPath = path.resolve(process.env.FIREBASE_SERVICE_ACCOUNT);
+const serviceAccount = require(serviceAccountPath);
+
 const logger = require('./logger');
 const pino = require('pino-http')({
   logger,
