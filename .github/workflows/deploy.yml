@@ -1,0 +1,22 @@
+name: Deploy latest image on Linux VM
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy-on-VM:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: SSH into VM and Deploy 
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{secrets.VM_HOST}}
+          username: ${{secrets.VM_USER}}
+          key: ${{secrets.VM_SSH_KEY}}
+          script: |
+            bash /home/adminuser/deploy.sh
+
