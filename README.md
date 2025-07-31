@@ -24,17 +24,30 @@ docker run --rm --name inventory --env-file .env -v ${pwd}/credentials.json:/app
 
 - Each item has these properties, you can use/query them
   - For the API docs, you can add/remove these from the body
+- Environment Variables
+  - These are the environment variables you need to set (with example values)
+```env
+LOG_LEVEL=debug                                          # Defines the log level
+PORT=8080                                                # Defines the port to run on
+FIREBASE_SERVICE_ACCOUNT=credentials.json                # the firebase service account (needs to be named credentials.json) 
+COSMOSDB_PRIMARY_KEY=sdasdsaadadhisaduhdahdhdh==         # The primary key for your cosmos database
+COSMOSDB_ENDPOINT=https://xxxx.documents.azure.com:xxx/  # the url/endpoint of your db
+# These should match the info for your terraform/main.tf
+COSMOSDB_DATABASE=stuff                                  # the database's name
+COSMOSDB_CONTAINER=products                              # the container's name
+RESOURCE_GROUP=microservice                              # the resource groups name 
+```   
 
 ```json
 {
   "item" {
-      "id": id,
-      "name": name,
-      "price": price,
-      "quantity": quantity,
-      "description": description,
-      "tags": tags,
-      "imgURL": imgURL,
+      "id"          : "string",
+      "name"        : "string",
+      "price"       : "number",       
+      "quantity"    : "number",    
+      "description" : "string", 
+      "tags"        : "array",         
+      "imgURL"      : "string",      
   }
 }
 ```
