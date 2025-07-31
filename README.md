@@ -45,6 +45,8 @@ docker run --rm --name inventory --env-file .env -v ${pwd}/credentials.json:/app
 
 - name, price and quantity are always needed in a body for creation
 
+---
+
 ### Get All Items
 
 - Returns an Array of all the Items inside the .items path
@@ -88,6 +90,8 @@ fetch(API_URL / v1 / items, {
 }
 ```
 
+---
+
 ### Get Single Item
 
 - Returns a single item matching the ID in the .item path
@@ -119,6 +123,8 @@ fetch([API_URL] / v1 / item / [ITEM_ID], {
 }
 ```
 
+---
+
 ### Creating an Item
 
 - Creates a single item into the DB
@@ -144,6 +150,8 @@ fetch(`[API_URL]/v1/item`, {
   "id": "5b8e7968-b4d2-4562-a818-7f88732d0b99"
 }
 ```
+
+---
 
 ### Updating an Item
 
@@ -176,6 +184,8 @@ fetch(`[API_URL]/v1/item/[id]`, {
   "id": "24788d6e-6dcc-455b-a81c-b1e698204b16"
 }
 ```
+
+---
 
 ### Deleting an Item
 
