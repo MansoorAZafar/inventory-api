@@ -42,3 +42,38 @@ jobs:
 
       - name: Install Dependencies and Run Tests
         run: npm ci && npm test
+
+  lint-dockerfile:
+      name: Dockerfile Lint
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout Code
+          uses: actions/checkout@v4
+
+        - name: Linting Dockerfile
+          uses: hadolint/hadolint-action@v3.1.0
+          with:
+            dockerfile: Dockerfile
+
+  docker-hub:
+    name: Build and Push to Docker hub
+    needs: [lint-dockerfile, lint, unit-tests]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and Push
+        env:
+          DOCKERHUB_REPO: ${{ secrets.DOCKERHUB_REPO }}
+          SHA_TAG: sha-${{github.sha}}
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: ${{env.DOCKERHUB_REPO}}:${{env.SHA_TAG}}, ${{env.DOCKERHUB_REPO}}:latest
